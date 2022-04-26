@@ -1,5 +1,5 @@
-# MolT5
-Associated Repository for "Translation between Molecules and Natural Language". Code is coming soon.
+# MolT5: Translation between Molecules and Natural Language
+Associated Repository for "[Translation between Molecules and Natural Language](https://arxiv.org/abs/2204.11817)". Code is coming soon.
 
 
 
