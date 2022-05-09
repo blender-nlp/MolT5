@@ -23,78 +23,88 @@ import numpy as np
 #load metric stuff
 
 from nltk.translate.bleu_score import corpus_bleu
-from nltk.translate.meteor_score import meteor_score
+#from nltk.translate.meteor_score import meteor_score
 
 from Levenshtein import distance as lev
 
 
-parser = argparse.ArgumentParser()
+def evaluate(input_fp, verbose=False):
+    outputs = []
 
-parser.add_argument('--input_file', type=str, default='caption2smiles_example.txt', help='path where test generations are saved')
-
-
-args = parser.parse_args()
-
-outputs = []
-
-with open(osp.join(args.input_file)) as f:
-    reader = csv.DictReader(f, delimiter="\t", quoting=csv.QUOTE_NONE)
-    for n, line in enumerate(reader):
-        gt_smi = line['ground truth']
-        ot_smi = line['output']
-        outputs.append((line['description'], gt_smi, ot_smi))
+    with open(osp.join(input_fp)) as f:
+        reader = csv.DictReader(f, delimiter="\t", quoting=csv.QUOTE_NONE)
+        for n, line in enumerate(reader):
+            gt_smi = line['ground truth']
+            ot_smi = line['output']
+            outputs.append((line['description'], gt_smi, ot_smi))
 
 
-bleu_scores = []
-meteor_scores = []
+    bleu_scores = []
+    #meteor_scores = []
 
-references = []
-hypotheses = []
+    references = []
+    hypotheses = []
 
-for i, (smi, gt, out) in enumerate(outputs):
-    
-    if i % 100 == 0: print(i, 'processed.')
+    for i, (smi, gt, out) in enumerate(outputs):
 
-
-    gt_tokens = [c for c in gt]
-
-    out_tokens = [c for c in out]
-
-    references.append([gt_tokens])
-    hypotheses.append(out_tokens)
-
-    mscore = meteor_score([gt], out)
-    meteor_scores.append(mscore)
-
-    
-print('BLEU score:', corpus_bleu(references, hypotheses))
-print('Average Meteor score:', np.mean(meteor_scores))
+        if i % 100 == 0:
+            if verbose:
+                print(i, 'processed.')
 
 
-rouge_scores = []
+        gt_tokens = [c for c in gt]
 
-references = []
-hypotheses = []
+        out_tokens = [c for c in out]
 
-levs = []
+        references.append([gt_tokens])
+        hypotheses.append(out_tokens)
 
-num_exact = 0
+        # mscore = meteor_score([gt], out)
+        # meteor_scores.append(mscore)
+
+    # BLEU score
+    bleu_score = corpus_bleu(references, hypotheses)
+    if verbose: print('BLEU score:', bleu_score)
+
+    # Meteor score
+    # _meteor_score = np.mean(meteor_scores)
+    # print('Average Meteor score:', _meteor_score)
+
+    rouge_scores = []
+
+    references = []
+    hypotheses = []
+
+    levs = []
+
+    num_exact = 0
+
+    for i, (smi, gt, out) in enumerate(outputs):
+
+        hypotheses.append(out)
+        references.append(gt)
+
+        if out == gt: num_exact += 1
+
+        levs.append(lev(out, gt))
 
 
-for i, (smi, gt, out) in enumerate(outputs):
-    
+    # Exact matching score
+    exact_match_score = num_exact/(i+1)
+    if verbose:
+        print('Exact Match:')
+        print(exact_match_score)
 
-    hypotheses.append(out)
-    references.append(gt)
-    
-    if out == gt: num_exact += 1
+    # Levenshtein score
+    levenshtein_score = np.mean(levs)
+    if verbose:
+        print('Levenshtein:')
+        print(levenshtein_score)
 
-    levs.append(lev(out, gt))
+    return bleu_score, exact_match_score, levenshtein_score
 
-
-print('Exact Match:')
-print(num_exact/(i+1))
-
-print('Levenshtein:')
-print(np.mean(levs))
-
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--input_file', type=str, default='caption2smiles_example.txt', help='path where test generations are saved')
+    args = parser.parse_args()
+    evaluate(args.input_file, verbose=True)
