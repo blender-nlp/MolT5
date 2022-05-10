@@ -55,6 +55,41 @@ print(tokenizer.decode(outputs[0], skip_special_tokens=True))
 
 ### Pretraining and Finetuning (MolT5-based models)
 
+We used the open-sourced [t5x](https://github.com/google-research/t5x) framework for both pretraining and finetuning MolT5-based models.
+
+For pre-training MolT5-based models, please first go over [this document](https://github.com/google-research/t5x/blob/main/docs/usage/pretrain.md). In our work, our pretraining task is a mixture of [c4_v220_span_corruption](https://github.com/google-research/text-to-text-transfer-transformer/blob/main/t5/data/tasks.py#L45) and also our own task called `zinc_span_corruption`. The pretraining mixture is called `zinc_and_c4_mix`. The code snippet below illustrates how to define `zinc_and_c4_mix` (e.g., you can just add this code snippet to [tasks.py](https://github.com/google-research/text-to-text-transfer-transformer/blob/main/t5/data/tasks.py)).
+```python
+...
+import tensorflow.compat.v2 as tf
+...
+seqio.TaskRegistry.add(
+    'zinc_span_corruption',
+    source=seqio.TFExampleDataSource(
+        split_to_filepattern={
+            'test': # Path to zinc_smiles_test.tfrecords,
+            'validation': # Path to zinc_smiles_val.tfrecords,
+            'train': # Path to zinc_smiles_train.tfrecords,
+        },
+        feature_description={
+            'text': tf.io.FixedLenFeature([], dtype=tf.string),
+        }),
+    preprocessors=[
+        functools.partial(
+            preprocessors.rekey, key_map={
+                'inputs': None,
+                'targets': 'text'
+            }),
+        seqio.preprocessors.tokenize,
+        preprocessors.span_corruption,
+        seqio.preprocessors.append_eos_after_trim,
+    ],
+    output_features=DEFAULT_OUTPUT_FEATURES,
+    metric_fns=[])
+
+seqio.MixtureRegistry.add('zinc_and_c4_mix', [('zinc_span_corruption', 1),
+                                              ('c4_v220_span_corruption', 1)])
+)
+```
 
 ### Citation
 If you found our work useful, please cite:
