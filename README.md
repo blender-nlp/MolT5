@@ -6,7 +6,10 @@ Associated repository for "[Translation between Molecules and Natural Language](
 <img src="https://raw.githubusercontent.com/blender-nlp/MolT5/main/molt5.png" width="70%">
 </p>
 
-
+Table of Contents
+ - [Model checkpoints](#model-checkpoints)
+ - [Pretraining and Finetuning (MolT5-based models)](#pretraining-and-finetuning-molt5-based-models)
+ - [Citation](#citation)
 
 ### Model checkpoints
 
@@ -49,6 +52,9 @@ input_ids = tokenizer(input_text, return_tensors="pt").input_ids
 outputs = model.generate(input_ids, num_beams=5, max_length=512)
 print(tokenizer.decode(outputs[0], skip_special_tokens=True))
 ```
+
+### Pretraining and Finetuning (MolT5-based models)
+
 
 ### Citation
 If you found our work useful, please cite:
