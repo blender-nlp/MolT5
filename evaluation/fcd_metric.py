@@ -61,8 +61,8 @@ def evaluate(input_file, verbose=False):
 
         fcd_sims.append(get_fcd(gt_smi, ot_smi, model))
 
+    fcd_sim_score = np.mean(fcd_sims)
     if verbose:
-        fcd_sim_score = np.mean(fcd_sims)
         print('Average FCD Similarity:', fcd_sim_score)
 
     return fcd_sim_score
