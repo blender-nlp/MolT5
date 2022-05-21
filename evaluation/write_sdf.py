@@ -21,6 +21,9 @@ import os.path as osp
 
 from rdkit import Chem
 
+from rdkit import RDLogger
+RDLogger.DisableLog('rdApp.*')
+
 parser = argparse.ArgumentParser()
 
 parser.add_argument('--input_file', type=str, default='caption2smiles_example.txt', help='path where test generations are saved')

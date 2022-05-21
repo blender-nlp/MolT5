@@ -30,6 +30,9 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 from rdkit import Chem
 
+from rdkit import RDLogger
+RDLogger.DisableLog('rdApp.*')
+
 parser = argparse.ArgumentParser()
 
 parser.add_argument('--use_gt', action=argparse.BooleanOptionalAction)

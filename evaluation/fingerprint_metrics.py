@@ -23,6 +23,9 @@ from rdkit.Chem import MACCSkeys
 from rdkit import DataStructs
 from rdkit.Chem import AllChem
 
+from rdkit import RDLogger
+RDLogger.DisableLog('rdApp.*')
+
 def evaluate(input_file, morgan_r, verbose=False):
     outputs = []
     bad_mols = 0

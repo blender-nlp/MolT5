@@ -19,6 +19,10 @@ import numpy as np
 
 from tqdm import tqdm
 from rdkit import Chem
+
+from rdkit import RDLogger
+RDLogger.DisableLog('rdApp.*')
+
 from fcd import get_fcd, load_ref_model
 
 def evaluate(input_file, verbose=False):

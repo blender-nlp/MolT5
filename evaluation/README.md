@@ -2,11 +2,14 @@
 Task evaluation code for "[Translation between Molecules and Natural Language](https://arxiv.org/abs/2204.11817)".
 
 
-<!---## Installation
-A more streamlined installation will be uploaded soon. 
+## Installation
+The requirements for the evaluation code conda environment are in environment_eval.yml. An environment can be created using the command: 
 
-The translation and fingerprint metrics should work in the default environment. FCD requires a special environment which is specified in 'FCD_requirements.yml'.
---->
+> conda env create -n MolTextTranslationEval -f environment_eval.yml python=3.9
+> conda activate MolTextTranslationEval
+> python -m spacy download en_core_web_sm
+> pip install git+https://github.com/samoturk/mol2vec
+
 
 ## Input format
 The input format should be a tab-separated txt file with three columns and the header 'SMILES ground truth  output' for smiles2caption or 'description	ground truth	output' for caption2smiles. 
