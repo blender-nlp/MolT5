@@ -70,6 +70,8 @@ with open(osp.join(args.input_file)) as f:
         try:
             gt_smi = line['ground truth']
             ot_smi = line['output']
+            if ot_smi == '': #fixes a downstream error in mol2vec
+                raise ValueError('Empty molecule.')
             m = Chem.MolFromSmiles(gt_smi)
             gt_smi = Chem.MolToSmiles(m)
             m = Chem.MolFromSmiles(ot_smi)

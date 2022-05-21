@@ -130,7 +130,7 @@ with torch.no_grad():
 
         m2v = mol2vec[cid]
 
-        print(text)
+        #print(text)
         text_input = text_tokenizer(text, truncation=True, max_length=args.text_trunc_length,
                                             padding='max_length', return_tensors = 'pt')
 

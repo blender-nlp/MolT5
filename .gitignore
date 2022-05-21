@@ -2,6 +2,11 @@ __pycache__/
 caption2smiles_eval.txt
 smiles2caption_eval.txt
 
+baselines/data
+baselines/saved_models
+evaluation/tmp.csv
+evaluation/tmp.sdf
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

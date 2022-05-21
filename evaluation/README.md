@@ -54,7 +54,7 @@ The input format should be a tab-separated txt file with three columns and the h
   </tr>
   <tr>
     <td>python fcd_metric.py --input_file caption2smiles_example.txt</td>
-    <td>Calculate FCD metric on output.</td>
+    <td>Evaluate FCD metric for molecule generation.</td>
   </tr>
 </table>
 

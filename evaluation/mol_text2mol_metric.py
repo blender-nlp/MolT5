@@ -149,7 +149,7 @@ with torch.no_grad():
         else:
             m2v = out
 
-        print(desc)
+        #print(desc)
         text_input = text_tokenizer(desc, truncation=True, max_length=args.text_trunc_length,
                                             padding='max_length', return_tensors = 'pt')
 
