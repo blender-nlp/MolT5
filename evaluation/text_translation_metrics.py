@@ -22,7 +22,7 @@ from transformers import BertTokenizerFast
 
 from nltk.translate.bleu_score import corpus_bleu
 from nltk.translate.meteor_score import meteor_score
-from rouge_metric import PyRouge
+from rouge_score import rouge_scorer
 
 def evaluate(text_model, input_file, text_trunc_length):
     outputs = []
@@ -72,9 +72,7 @@ def evaluate(text_model, input_file, text_trunc_length):
     _meteor_score = np.mean(meteor_scores)
     print('Average Meteor score:', _meteor_score)
 
-    rouge = PyRouge(rouge_n=(1, 2, 4), rouge_l=True, rouge_w=True,
-                    rouge_w_weight=1.2, rouge_s=True, rouge_su=True, skip_gap=4)
-
+    scorer = rouge_scorer.RougeScorer(['rouge1', 'rouge2', 'rougeL'])
 
     rouge_scores = []
 
@@ -83,17 +81,16 @@ def evaluate(text_model, input_file, text_trunc_length):
 
     for i, (smi, gt, out) in enumerate(outputs):
 
-        hypotheses.append(out)
-        references.append([gt])
-
-
-    rouge_scores = rouge.evaluate(hypotheses, references)
+        rs = scorer.score(out, gt)
+        rouge_scores.append(rs)
 
     print('ROUGE score:')
-    print(rouge_scores)
-    rouge_1 = rouge_scores['rouge-1']['f']
-    rouge_2 = rouge_scores['rouge-2']['f']
-    rouge_l = rouge_scores['rouge-l']['f']
+    rouge_1 = np.mean([rs['rouge1'].fmeasure for rs in rouge_scores])
+    rouge_2 = np.mean([rs['rouge2'].fmeasure for rs in rouge_scores])
+    rouge_l = np.mean([rs['rougeL'].fmeasure for rs in rouge_scores])
+    print('rouge1:', rouge_1)
+    print('rouge2:', rouge_2)
+    print('rougeL:', rouge_l)
     return bleu2, bleu4, rouge_1, rouge_2, rouge_l, _meteor_score
 
 if __name__ == "__main__":
