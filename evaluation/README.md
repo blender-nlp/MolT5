@@ -18,7 +18,8 @@ pip install git+https://github.com/samoturk/mol2vec
 
 ### Downloads
 
-* [test_outputfinal_weights.320.pt](https://uofi.box.com/s/es16alnhzfy1hpagf55fu48k49f8n29x) should be placed in "evaluation/t2m_output"
+* [test_outputfinal_weights.320.pt](https://uofi.box.com/s/es16alnhzfy1hpagf55fu48k49f8n29x) should be placed in "evaluation/t2m_output".
+It can be downloaded using ```curl -L  https://uofi.box.com/shared/static/es16alnhzfy1hpagf55fu48k49f8n29x --output test_outputfinal_weights.320.pt```
 
 If GitHub LFS fails:
 * [cid_to_smiles.pkl](https://uofi.box.com/v/MolT5-cid-to-smiles)
