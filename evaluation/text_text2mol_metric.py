@@ -159,4 +159,3 @@ mol_embs = np.array(mol_embs).squeeze()
 
 mat = cosine_similarity(text_embs, mol_embs)
 print('Negative Similarity:', np.mean(mat[np.eye(mat.shape[0]) == 0]))
-

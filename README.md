@@ -1,6 +1,8 @@
 # MolT5: Translation between Molecules and Natural Language
 Associated repository for "[Translation between Molecules and Natural Language](https://arxiv.org/abs/2204.11817)".
 
+## News
+Our paper has been accepted to EMNLP 2022. We will release a camera-ready version of the paper on arXiv soon. 
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/blender-nlp/MolT5/main/molt5.png" width="70%">

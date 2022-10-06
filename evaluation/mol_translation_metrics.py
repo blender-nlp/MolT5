@@ -27,6 +27,10 @@ from nltk.translate.bleu_score import corpus_bleu
 
 from Levenshtein import distance as lev
 
+from rdkit import Chem
+
+from rdkit import RDLogger
+RDLogger.DisableLog('rdApp.*')
 
 def evaluate(input_fp, verbose=False):
     outputs = []
@@ -79,12 +83,23 @@ def evaluate(input_fp, verbose=False):
 
     num_exact = 0
 
+    bad_mols = 0
+
     for i, (smi, gt, out) in enumerate(outputs):
 
         hypotheses.append(out)
         references.append(gt)
 
-        if out == gt: num_exact += 1
+        try:
+            m_out = Chem.MolFromSmiles(out)
+            m_gt = Chem.MolFromSmiles(gt)
+
+            if Chem.MolToInchi(m_out) == Chem.MolToInchi(m_gt): num_exact += 1
+            #if gt == out: num_exact += 1 #old version that didn't standardize strings
+        except:
+            bad_mols += 1
+
+        
 
         levs.append(lev(out, gt))
 
@@ -100,8 +115,12 @@ def evaluate(input_fp, verbose=False):
     if verbose:
         print('Levenshtein:')
         print(levenshtein_score)
+        
+    validity_score = 1 - bad_mols/len(outputs)
+    if verbose:
+        print('validity:', validity_score)
 
-    return bleu_score, exact_match_score, levenshtein_score
+    return bleu_score, exact_match_score, levenshtein_score, validity_score
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

@@ -1,6 +1,10 @@
 # Evaluation Code: Translation between Molecules and Natural Language
 Task evaluation code for "[Translation between Molecules and Natural Language](https://arxiv.org/abs/2204.11817)".
 
+## Updates
+10/6: 
+* Exact comparison is now done via InChI strings.
+* Addressed a small bug in FCD metric code. Results are qualitatively identical, but the new version is much faster and hopefully will be more meaningful in future work. 
 
 ## Installation
 The requirements for the evaluation code conda environment are in environment_eval.yml. An environment can be created using the following commands: 
@@ -11,6 +15,13 @@ conda activate MolTextTranslationEval
 python -m spacy download en_core_web_sm
 pip install git+https://github.com/samoturk/mol2vec
 ```
+
+### Downloads
+
+* [test_outputfinal_weights.320.pt](https://uofi.box.com/s/es16alnhzfy1hpagf55fu48k49f8n29x) should be placed in "evaluation/t2m_output"
+
+If GitHub LFS fails:
+* [cid_to_smiles.pkl](https://uofi.box.com/v/MolT5-cid-to-smiles)
 
 ## Input format
 The input format should be a tab-separated txt file with three columns and the header 'SMILES ground truth  output' for smiles2caption or 'description	ground truth	output' for caption2smiles. 
