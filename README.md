@@ -1,5 +1,5 @@
 # MolT5: Translation between Molecules and Natural Language
-Associated repository for "[Translation between Molecules and Natural Language](https://arxiv.org/abs/2204.11817)".
+Associated repository for "[Translation between Molecules and Natural Language](https://arxiv.org/abs/2204.11817)" (EMNLP 2022).
 
 
 <p align="center">
