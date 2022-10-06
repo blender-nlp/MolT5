@@ -6,7 +6,6 @@ baselines/data
 baselines/saved_models
 evaluation/tmp.csv
 evaluation/tmp.sdf
-evaluation/t2m_output/test_outputfinal_weights.320.pt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
