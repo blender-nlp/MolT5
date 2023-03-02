@@ -79,10 +79,21 @@ The input format should be a tab-separated txt file with three columns and the h
 ### Citation
 If you found our work useful, please cite:
 ```bibtex
-@article{edwards2022translation,
-  title={Translation between Molecules and Natural Language},
-  author={Edwards, Carl and Lai, Tuan and Ros, Kevin and Honke, Garrett and Ji, Heng},
-  journal={arXiv preprint arXiv:2204.11817},
-  year={2022}
+@inproceedings{edwards-etal-2022-translation,
+    title = "Translation between Molecules and Natural Language",
+    author = "Edwards, Carl  and
+      Lai, Tuan  and
+      Ros, Kevin  and
+      Honke, Garrett  and
+      Cho, Kyunghyun  and
+      Ji, Heng",
+    booktitle = "Proceedings of the 2022 Conference on Empirical Methods in Natural Language Processing",
+    month = dec,
+    year = "2022",
+    address = "Abu Dhabi, United Arab Emirates",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2022.emnlp-main.26",
+    pages = "375--413",
 }
+
 ```
