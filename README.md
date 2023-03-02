@@ -1,14 +1,15 @@
 # MolT5: Translation between Molecules and Natural Language
 Associated repository for "[Translation between Molecules and Natural Language](https://arxiv.org/abs/2204.11817)" (EMNLP 2022).
 
-## News
-Our paper has been accepted to EMNLP 2022. We will release a camera-ready version of the paper on arXiv soon. If you are using evaluation code, please see the README in ./evaluation
-
 <p align="center">
 <img src="https://raw.githubusercontent.com/blender-nlp/MolT5/main/molt5.png" width="70%">
 </p>
 
-Table of Contents
+### Evaluation
+If you want to run evaluation code, please see the README in ./evaluation
+
+
+## Table of Contents
  - [HuggingFace model checkpoints](#huggingface-model-checkpoints)
  - [T5X-based model checkpoints](#t5x-based-model-checkpoints)
  - [Pretraining (MolT5-based models)](#pretraining-molt5-based-models)
@@ -175,10 +176,21 @@ seqio.TaskRegistry.add(
 ### Citation
 If you found our work useful, please cite:
 ```bibtex
-@article{edwards2022translation,
-  title={Translation between Molecules and Natural Language},
-  author={Edwards, Carl and Lai, Tuan and Ros, Kevin and Honke, Garrett and Cho, Kyunghyun and Ji, Heng},
-  journal={arXiv preprint arXiv:2204.11817},
-  year={2022}
+@inproceedings{edwards-etal-2022-translation,
+    title = "Translation between Molecules and Natural Language",
+    author = "Edwards, Carl  and
+      Lai, Tuan  and
+      Ros, Kevin  and
+      Honke, Garrett  and
+      Cho, Kyunghyun  and
+      Ji, Heng",
+    booktitle = "Proceedings of the 2022 Conference on Empirical Methods in Natural Language Processing",
+    month = dec,
+    year = "2022",
+    address = "Abu Dhabi, United Arab Emirates",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2022.emnlp-main.26",
+    pages = "375--413",
 }
+
 ```
